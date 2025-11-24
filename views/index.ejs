@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Men's Tennis Rankings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Men's Tennis Rankings</h1>
+
+  <table id="rankingTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Points</th>
+        <th>Country</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    async function loadRankings() {
+      try {
+        const response = await fetch('/mens');
+        const data = await response.json();
+
+        const tbody = document.querySelector('#rankingTable tbody');
+        tbody.innerHTML = ''; // clear table
+
+        data.forEach(player => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${player.rank}</td>
+            <td>${player.name}</td>
+            <td>${player.points}</td>
+            <td>${player.country}</td>
+            <td>${player.age}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching rankings:', error);
+      }
+    }
+
+    // Load data when page loads
+    window.onload = loadRankings;
+  </script>
+</body>
+</html>
