@@ -24,3 +24,5 @@ const mensrankingSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('MensRanking', mensrankingSchema);
+
+//new changes
